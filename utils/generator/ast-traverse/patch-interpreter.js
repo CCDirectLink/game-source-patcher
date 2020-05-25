@@ -121,7 +121,7 @@ class Interpreter {
         // generate code
         const classCode = [
             `
-export default class ES11 {
+class EstreePatchTraverser {
     constructor(options) {
         this.options = options || {};
         this.state = {};
@@ -129,13 +129,44 @@ export default class ES11 {
 
     traverse(node) {
         this.state = {
-            depth: 1, 
+            depth: 0, 
             skip: false, 
-            stop: false, 
+            stop: false,
+            nodeReplacement: null, 
             parents: [],
             keys: []
         };
         this._traverse(node);
+    }
+
+    replaceNode(newNode) {
+        const parent = this.state.parents.last();
+        const key = this.state.keys.last();
+
+        if (key.length === 2) {
+            parent[key[0]][key[1]] = newNode;
+        } else {
+            parent[key[0]] = newNode;
+        }
+        this.state.nodeReplacement = newNode;
+    }
+
+    insertBefore(nodes) {
+        const parent = this.state.parents.last();
+        const key = this.state.keys.last();
+        
+        if (key.length === 2) {
+            parent[key[0]].splice(key[1], 0, ...nodes);
+        }
+    }
+
+    insertAfter(nodes) {
+        const parent = this.state.parents.last();
+        const key = this.state.keys.last();
+        
+        if (key.length === 2) {
+            parent[key[0]].splice(key[1] + 1, 0, ...nodes);
+        }
     }
 
     _traverse(node) {
@@ -149,6 +180,13 @@ export default class ES11 {
         
         if (typeof enter === 'function') {
             enter(node, this.state);
+        }
+
+        if (this.state.nodeReplacement) {
+            const newNode = this.state.nodeReplacement;
+            this.state.nodeReplacement = null;
+            this._traverse(newNode);
+            return;
         }
 
         if (this.state.stop) return;
