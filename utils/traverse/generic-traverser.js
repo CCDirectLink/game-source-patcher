@@ -839,4 +839,3 @@ class EstreeGenericTraverser {
         this.state.keys.pop()
     }
 }
-window.ES11 = ES11;
