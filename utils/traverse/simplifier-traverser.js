@@ -16,6 +16,10 @@ class EstreeSimplifier {
     }
 
     _simplify(node) {
+        if (node === null) {
+            return undefined;
+        }
+
         delete node.start;
         delete node.end;
         return this[node.type](node);
