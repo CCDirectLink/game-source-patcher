@@ -45,8 +45,16 @@ class EstreeSimplifier {
                 bodyObject[i] = result;
             }
         }
-        node.body = bodyObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(bodyObject).length === 0) {
+            delete node.body;
+        } else {
+            node.body = bodyObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ExpressionStatement(node) {
@@ -54,7 +62,11 @@ class EstreeSimplifier {
         if (node.expression === undefined) {
             delete node.expression;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     BlockStatement(node) {
@@ -65,8 +77,16 @@ class EstreeSimplifier {
                 bodyObject[i] = result;
             }
         }
-        node.body = bodyObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(bodyObject).length === 0) {
+            delete node.body;
+        } else {
+            node.body = bodyObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     EmptyStatement(node) { return node; }
@@ -83,7 +103,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ReturnStatement(node) {
@@ -91,7 +115,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     LabeledStatement(node) {
@@ -104,7 +132,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     BreakStatement(node) {
@@ -112,7 +144,11 @@ class EstreeSimplifier {
         if (node.label === undefined) {
             delete node.label;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ContinueStatement(node) {
@@ -120,7 +156,11 @@ class EstreeSimplifier {
         if (node.label === undefined) {
             delete node.label;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     IfStatement(node) {
@@ -138,7 +178,11 @@ class EstreeSimplifier {
         if (node.alternate === undefined) {
             delete node.alternate;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     SwitchStatement(node) {
@@ -154,8 +198,16 @@ class EstreeSimplifier {
                 casesObject[i] = result;
             }
         }
-        node.cases = casesObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(casesObject).length === 0) {
+            delete node.cases;
+        } else {
+            node.cases = casesObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     SwitchCase(node) {
@@ -171,8 +223,16 @@ class EstreeSimplifier {
                 consequentObject[i] = result;
             }
         }
-        node.consequent = consequentObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(consequentObject).length === 0) {
+            delete node.consequent;
+        } else {
+            node.consequent = consequentObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ThrowStatement(node) {
@@ -180,7 +240,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     TryStatement(node) {
@@ -198,7 +262,11 @@ class EstreeSimplifier {
         if (node.finalizer === undefined) {
             delete node.finalizer;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     CatchClause(node) {
@@ -211,7 +279,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     WhileStatement(node) {
@@ -224,7 +296,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     DoWhileStatement(node) {
@@ -237,7 +313,11 @@ class EstreeSimplifier {
         if (node.test === undefined) {
             delete node.test;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ForStatement(node) {
@@ -260,7 +340,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ForInStatement(node) {
@@ -278,7 +362,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     FunctionDeclaration(node) {
@@ -294,13 +382,21 @@ class EstreeSimplifier {
                 paramsObject[i] = result;
             }
         }
-        node.params = paramsObject
+        if (Object.keys(paramsObject).length === 0) {
+            delete node.params;
+        } else {
+            node.params = paramsObject;
+        }
 
         node.body = this._simplify(node.body);
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     VariableDeclaration(node) {
@@ -311,8 +407,16 @@ class EstreeSimplifier {
                 declarationsObject[i] = result;
             }
         }
-        node.declarations = declarationsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(declarationsObject).length === 0) {
+            delete node.declarations;
+        } else {
+            node.declarations = declarationsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     VariableDeclarator(node) {
@@ -325,7 +429,11 @@ class EstreeSimplifier {
         if (node.init === undefined) {
             delete node.init;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ThisExpression(node) { return node; }
@@ -338,8 +446,16 @@ class EstreeSimplifier {
                 elementsObject[i] = result;
             }
         }
-        node.elements = elementsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(elementsObject).length === 0) {
+            delete node.elements;
+        } else {
+            node.elements = elementsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ObjectExpression(node) {
@@ -350,8 +466,16 @@ class EstreeSimplifier {
                 propertiesObject[i] = result;
             }
         }
-        node.properties = propertiesObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(propertiesObject).length === 0) {
+            delete node.properties;
+        } else {
+            node.properties = propertiesObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     Property(node) {
@@ -364,7 +488,11 @@ class EstreeSimplifier {
         if (node.value === undefined) {
             delete node.value;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     FunctionExpression(node) {
@@ -380,13 +508,21 @@ class EstreeSimplifier {
                 paramsObject[i] = result;
             }
         }
-        node.params = paramsObject
+        if (Object.keys(paramsObject).length === 0) {
+            delete node.params;
+        } else {
+            node.params = paramsObject;
+        }
 
         node.body = this._simplify(node.body);
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     UnaryExpression(node) {
@@ -394,7 +530,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     UpdateExpression(node) {
@@ -402,7 +542,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     BinaryExpression(node) {
@@ -415,7 +559,11 @@ class EstreeSimplifier {
         if (node.right === undefined) {
             delete node.right;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     AssignmentExpression(node) {
@@ -428,7 +576,11 @@ class EstreeSimplifier {
         if (node.right === undefined) {
             delete node.right;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     LogicalExpression(node) {
@@ -441,7 +593,11 @@ class EstreeSimplifier {
         if (node.right === undefined) {
             delete node.right;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     MemberExpression(node) {
@@ -454,7 +610,11 @@ class EstreeSimplifier {
         if (node.property === undefined) {
             delete node.property;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ConditionalExpression(node) {
@@ -472,7 +632,11 @@ class EstreeSimplifier {
         if (node.consequent === undefined) {
             delete node.consequent;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     CallExpression(node) {
@@ -488,8 +652,16 @@ class EstreeSimplifier {
                 argumentsObject[i] = result;
             }
         }
-        node.arguments = argumentsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(argumentsObject).length === 0) {
+            delete node.arguments;
+        } else {
+            node.arguments = argumentsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     NewExpression(node) {
@@ -505,8 +677,16 @@ class EstreeSimplifier {
                 argumentsObject[i] = result;
             }
         }
-        node.arguments = argumentsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(argumentsObject).length === 0) {
+            delete node.arguments;
+        } else {
+            node.arguments = argumentsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     SequenceExpression(node) {
@@ -517,8 +697,16 @@ class EstreeSimplifier {
                 expressionsObject[i] = result;
             }
         }
-        node.expressions = expressionsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(expressionsObject).length === 0) {
+            delete node.expressions;
+        } else {
+            node.expressions = expressionsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ForOfStatement(node) {
@@ -536,7 +724,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     Super(node) { return node; }
@@ -546,7 +738,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ArrowFunctionExpression(node) {
@@ -562,13 +758,21 @@ class EstreeSimplifier {
                 paramsObject[i] = result;
             }
         }
-        node.params = paramsObject
+        if (Object.keys(paramsObject).length === 0) {
+            delete node.params;
+        } else {
+            node.params = paramsObject;
+        }
 
         node.body = this._simplify(node.body);
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     YieldExpression(node) {
@@ -576,7 +780,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     TemplateLiteral(node) {
@@ -587,7 +795,11 @@ class EstreeSimplifier {
                 quasisObject[i] = result;
             }
         }
-        node.quasis = quasisObject
+        if (Object.keys(quasisObject).length === 0) {
+            delete node.quasis;
+        } else {
+            node.quasis = quasisObject;
+        }
 
         const expressionsObject = {};
         for (let i = 0; i < node.expressions.length; i++) {
@@ -596,8 +808,16 @@ class EstreeSimplifier {
                 expressionsObject[i] = result;
             }
         }
-        node.expressions = expressionsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(expressionsObject).length === 0) {
+            delete node.expressions;
+        } else {
+            node.expressions = expressionsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     TaggedTemplateExpression(node) {
@@ -610,7 +830,11 @@ class EstreeSimplifier {
         if (node.quasi === undefined) {
             delete node.quasi;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     TemplateElement(node) { return node; }
@@ -623,8 +847,16 @@ class EstreeSimplifier {
                 propertiesObject[i] = result;
             }
         }
-        node.properties = propertiesObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(propertiesObject).length === 0) {
+            delete node.properties;
+        } else {
+            node.properties = propertiesObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ArrayPattern(node) {
@@ -635,8 +867,16 @@ class EstreeSimplifier {
                 elementsObject[i] = result;
             }
         }
-        node.elements = elementsObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(elementsObject).length === 0) {
+            delete node.elements;
+        } else {
+            node.elements = elementsObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     RestElement(node) {
@@ -644,7 +884,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     AssignmentPattern(node) {
@@ -657,7 +901,11 @@ class EstreeSimplifier {
         if (node.right === undefined) {
             delete node.right;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ClassBody(node) {
@@ -668,8 +916,16 @@ class EstreeSimplifier {
                 bodyObject[i] = result;
             }
         }
-        node.body = bodyObject
-        return Object.keys(node).length === 0 ? undefined : node;
+        if (Object.keys(bodyObject).length === 0) {
+            delete node.body;
+        } else {
+            node.body = bodyObject;
+        }
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     MethodDefinition(node) {
@@ -682,7 +938,11 @@ class EstreeSimplifier {
         if (node.value === undefined) {
             delete node.value;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ClassDeclaration(node) {
@@ -700,7 +960,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ClassExpression(node) {
@@ -718,7 +982,11 @@ class EstreeSimplifier {
         if (node.body === undefined) {
             delete node.body;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     MetaProperty(node) {
@@ -731,7 +999,11 @@ class EstreeSimplifier {
         if (node.property === undefined) {
             delete node.property;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ImportDeclaration(node) {
@@ -742,13 +1014,21 @@ class EstreeSimplifier {
                 specifiersObject[i] = result;
             }
         }
-        node.specifiers = specifiersObject
+        if (Object.keys(specifiersObject).length === 0) {
+            delete node.specifiers;
+        } else {
+            node.specifiers = specifiersObject;
+        }
 
         node.source = this._simplify(node.source);
         if (node.source === undefined) {
             delete node.source;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ImportSpecifier(node) {
@@ -761,7 +1041,11 @@ class EstreeSimplifier {
         if (node.imported === undefined) {
             delete node.imported;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ImportDefaultSpecifier(node) {
@@ -769,7 +1053,11 @@ class EstreeSimplifier {
         if (node.local === undefined) {
             delete node.local;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ImportNamespaceSpecifier(node) {
@@ -777,7 +1065,11 @@ class EstreeSimplifier {
         if (node.local === undefined) {
             delete node.local;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ExportNamedDeclaration(node) {
@@ -793,13 +1085,21 @@ class EstreeSimplifier {
                 specifiersObject[i] = result;
             }
         }
-        node.specifiers = specifiersObject
+        if (Object.keys(specifiersObject).length === 0) {
+            delete node.specifiers;
+        } else {
+            node.specifiers = specifiersObject;
+        }
 
         node.source = this._simplify(node.source);
         if (node.source === undefined) {
             delete node.source;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ExportSpecifier(node) {
@@ -812,7 +1112,11 @@ class EstreeSimplifier {
         if (node.exported === undefined) {
             delete node.exported;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ExportDefaultDeclaration(node) {
@@ -820,7 +1124,11 @@ class EstreeSimplifier {
         if (node.declaration === undefined) {
             delete node.declaration;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ExportAllDeclaration(node) {
@@ -833,7 +1141,11 @@ class EstreeSimplifier {
         if (node.exported === undefined) {
             delete node.exported;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     AwaitExpression(node) {
@@ -841,7 +1153,11 @@ class EstreeSimplifier {
         if (node.argument === undefined) {
             delete node.argument;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 
     ImportExpression(node) {
@@ -849,6 +1165,10 @@ class EstreeSimplifier {
         if (node.source === undefined) {
             delete node.source;
         }
-        return Object.keys(node).length === 0 ? undefined : node;
+        const nodeKeys = Object.keys(node);
+        if (nodeKeys.length === 1 && nodeKeys[0] === 'type') {
+            return undefined;
+        }
+        return nodeKeys.length === 0 ? undefined : node;
     }
 }

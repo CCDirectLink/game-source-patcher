@@ -145,7 +145,7 @@ class EstreeSimplifier {
         if (node === null) {
             return undefined;
         }
-        
+
         delete node.start;
         delete node.end;
         return this[node.type](node);
@@ -195,7 +195,11 @@ class EstreeSimplifier {
                             `\t\t\t${field.name}Object[i] = result;`,
                             `\t\t}`,
                             '\t}',
-                            `\tnode.${field.name} = ${field.name}Object`
+                            `\tif(Object.keys(${field.name}Object).length === 0) {`,
+                            `\t\tdelete node.${field.name};`,
+                            `\t} else {`,
+                            `\t\tnode.${field.name} = ${field.name}Object;`,
+                            '\t}'
                         ]
                     } else {
                         fieldCode = [
@@ -212,8 +216,14 @@ class EstreeSimplifier {
 
                     methodCode.push(...fieldCode);
                 }
-                methodCode.push('\treturn Object.keys(node).length === 0 ? undefined: node;');
-                methodCode.push('}');
+                methodCode.push(...[
+                    `\tconst nodeKeys = Object.keys(node);`,
+                    `\tif (nodeKeys.length === 1 && nodeKeys[0] === 'type') {`,
+                    '\t\treturn undefined;',
+                    '\t}',
+                    '\treturn nodeKeys.length === 0 ? undefined : node;',
+                    '}'
+                ]);
             }
             classCode.push('');
             classCode.push(...methodCode.map(e => `\t${e}`));
