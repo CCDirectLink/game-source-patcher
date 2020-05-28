@@ -1,0 +1,21 @@
+{
+    "impact.base.lang": {
+        "rename": [
+            {
+                "tests": [
+                    {
+                        "settings": {},
+                        "code": ""
+                    }
+                ],
+                "targets": []
+            }
+        ],
+        "patch": [
+            {
+                "tests": [],
+                "patches": []
+            }
+        ]
+    }
+}
