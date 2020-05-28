@@ -139,6 +139,20 @@ class EstreePatchTraverser {
         this._traverse(node);
     }
 
+    removeNode() {
+        const parent = this.state.parents.last();
+        const key = this.state.keys.last();
+
+        if (key.length === 2) {
+            parent[key[0]].splice(key[1], 1);
+        } else {
+            parent[key[0]] = undefined;
+        }
+
+        this.state.nodeReplacement = null;
+        this.state.skip = true;
+    }
+    
     replaceNode(newNode) {
         const parent = this.state.parents.last();
         const key = this.state.keys.last();
