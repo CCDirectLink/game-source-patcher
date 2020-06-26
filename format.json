@@ -1,21 +1,11 @@
-{
-    "impact.base.lang": {
-        "rename": [
-            {
-                "tests": [
-                    {
-                        "settings": {},
-                        "code": ""
-                    }
-                ],
-                "targets": []
-            }
-        ],
-        "patch": [
+[
+    {
+        "module": "impact.base.lang",
+        "patches": [
             {
                 "tests": [],
-                "patches": []
+                "patch-steps": []
             }
         ]
     }
-}
+]
