@@ -5,7 +5,8 @@ export default class GameSourcePatcher extends Plugin {
 	}
 
 	async preload() {
-
+		const worker = new Worker('/' + this.mod.baseDirectory + '/worker.js');
+		worker.terminate();
 	}
 
 	async postload() {
