@@ -55,7 +55,6 @@ function GetModuleName(source) {
     const regex = /ig[\s]*\.[\s]*module[\s]*\([\s]*"([\w\.-]+)"[\s]*\)/;
     const match =  source.match(regex);
     if (!match) {
-        debugger;
         throw "Could not find module name";
     }
     return match[1];
