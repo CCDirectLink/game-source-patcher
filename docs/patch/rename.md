@@ -11,7 +11,7 @@
         "object": /** some ast subtree **/,
     }],
     "rename": [{
-        "matched-node-ref": 0, // node that matched at test[0]
+        "node": 0, // node that matched at test[0]
         "path": "blah.blah", // ast path to enter to find target Identifier
         "name": "owo"
     }]
