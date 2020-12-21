@@ -5,7 +5,6 @@ const Test = require('../match/test.js');
 const acorn = require('../lib/acorn/acorn.js');
 const escodegen = require('escodegen');
 const VariableScopeBinder = require('../variable-scope-binder.js');
-const Rename = require('../match/rename.js');
 
 test('Traverse basic tree with no errors', () => {
     const testManager = new TestManager();
@@ -21,16 +20,20 @@ test('Traverse basic tree with no errors', () => {
 
 test('Do not explore past max depth', () => {
     const testManager = new TestManager();
-    const test = new Test(new Rename([{
-        name: "owo"
-    }]));
-    test.addCase({
-        depth: 3,
-        "ast-subtree": {
-            type: "Identifier",
-            name: "a"
-        }
+    const test = Test.create({
+        name: "Rename test",
+        tests: [{
+            depth: 3,
+            "ast-subtree": {
+                type: "Identifier",
+                name: "a"
+            }
+        }],
+        renames : [{
+            name: "owo"
+        }]
     });
+
     testManager.addTest(test);
     const ast = acorn.parse('var a = function() { var b = 3;}');
     
@@ -53,15 +56,19 @@ test('Do not explore past max depth', () => {
 
 test('Ability to rename variable a to owo', () => {
     const testManager = new TestManager();
-    const test = new Test(new Rename([{
-        name: "owo"
-    }]));
-    test.addCase({
-        depth: 3,
-        "ast-subtree": {
-            type: "Identifier",
-            name: "a"
-        }
+
+    const test = Test.create({
+        name: "Rename test",
+        tests: [{
+            depth: 3,
+            "ast-subtree": {
+                type: "Identifier",
+                name: "a"
+            }
+        }],
+        renames : [{
+            name: "owo"
+        }]
     });
 
     testManager.addTest(test);
