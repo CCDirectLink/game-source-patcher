@@ -3,7 +3,6 @@ class Scope {
         this.name = name;
         this.id = null;
         this.undef = new Map;
-        this.param = new Map;
         this.var = new Map;
         this.parent = parent;
     }
@@ -24,15 +23,7 @@ class Scope {
     }
 
     addParam(name, node) {
-        let meta = null;
-        if (!this.param.has(name)) {
-            meta = this._generateBinding('param', name);
-            this.param.set(name, meta);
-        } else {
-            meta = this.param.get(name);
-        }
-        meta.references.push(node);
-        return meta;
+        return this.addVariable(name, node);
     }
 
 
