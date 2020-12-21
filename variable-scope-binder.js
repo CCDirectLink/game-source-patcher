@@ -1,64 +1,72 @@
+
+
+// https://stackoverflow.com/a/5197219
+if (typeof module !== 'undefined' && module.exports) {
+    global.Scope = require('./utils/scope.js');
+    global.ES11 = require('./utils/traverse/patch-traverser.js');
+}
+
 class VariableScopeBinder {
-    constructor(ast) {
-        let currentScope = null;
-        let scopes = [];
-
-    }
-
-    buildBindings(ast) {
+    static buildBindings(ast) {
+        const scopeState = {
+            currentScope: null,
+            scopes: []
+        };
         const es11 = new ES11({
-            enter: this.onEnter.bind(this),
-            exit: this.onExit.bind(this)
+            enter: function(node, state) {
+                VariableScopeBinder.onEnter(node, state, scopeState);
+            },
+            exit: function(node, state) {
+                VariableScopeBinder.onExit(node, scopeState);
+            }
         });
         es11.traverse(ast);
     }
 
-    addScope(type) {
-        const scopeType = type === "Program" ? "Global" : "Function";
-        this.currentScope = new Scope(scopeType, this.currentScope);
-        this.scopes.push(this.currentScope);
-    }
-
-    onEnter(node, state) {
+    static onEnter(node, state, scopeState) {
         switch (node.type) {
             case 'Program':
             case 'ArrowFunctionExpression':
             case 'FunctionDeclaration':
             case 'FunctionExpression': {
-                this.addScope(node.type)
+                const scopeType = node.type === "Program" ? "Global" : "Function";
+                const currentScope = new Scope(scopeType, scopeState.currentScope);
+                scopeState.scopes.push(currentScope);
+                scopeState.currentScope = currentScope;
                 break;
             }
             case 'Identifier': {
-                this.handleIdentifier(node, state);
+                VariableScopeBinder.handleIdentifier(node, state, scopeState);
                 break;
             }
         }
     } 
 
-    handleIdentifier(node, state) {
-
-        const parent = state.parents.last();
-        const key = state.keys.last();
+    static handleIdentifier(node, state, scopeState) {
+        const currentScope = scopeState.currentScope;
+        const parent = state.parents.slice(-1)[0];
+        const key = state.keys.slice(-1)[0];
         if (parent.type === 'FunctionDeclaration') {
-            this.handleFunctionDeclarationId(node, state);
+            VariableScopeBinder.handleFunctionDeclarationId(node, state, scopeState);
         } else if (parent.type === 'FunctionExpression' || parent.type === 'ArrowFunctionExpression') {
-            this.handleFunctionExpressionId(node, state);
+            VariableScopeBinder.handleFunctionExpressionId(node, state, scopeState);
         } else if (parent.type === 'AssignmentPattern') {
-            this.handleAssignmentPatternId(node, state);
+            VariableScopeBinder.handleAssignmentPatternId(node, state, scopeState);
         } else if (parent.type === 'VariableDeclarator' && key[0] === 'id') {
             node.bindings = currentScope.addVariable(node.name, node);
         } else if (parent.type === 'MemberExpression' && key[0] === 'property' && !parent.computed) {
         } else if (parent.type === 'MemberExpression' && parent.object.name === 'window') {
             node.bindings = scopes[0].addBinding(node.name, node);
         } else if (parent.type.endsWith('Expression')) {
-            this.handleExpressionId(node, state);
+            VariableScopeBinder.handleExpressionId(node, state, scopeState);
         } else {
             // default
             node.bindings = currentScope.addBinding(node.name, node);
         }
     }
 
-    handleFunctionDeclarationId(node, state) {
+    static handleFunctionDeclarationId(node, state, scopeState) {
+        const currentScope = scopeState.currentScope;
         if (key[0] === 'id') {
             node.bindings = currentScope.parent.addVariable(node.name, node);
             
@@ -67,7 +75,8 @@ class VariableScopeBinder {
         }
     }
 
-    handleFunctionExpressionId(node, state) {
+    static handleFunctionExpressionId(node, state, scopeState) {
+        const currentScope = scopeState.currentScope;
         if (key[0] === 'id') {
             node.bindings = currentScope.addId(node.name, node);
         } else if (key[0] === 'params') {
@@ -75,7 +84,8 @@ class VariableScopeBinder {
         }
     }
 
-    handleAssignmentPatternId(node, state) {
+    static handleAssignmentPatternId(node, state, scopeState) {
+        const currentScope = scopeState.currentScope;
         if (key[0] === 'left') {
             if (state.keys.last(2)[0] === 'params') {
                 node.bindings = currentScope.addParam(node.name, node);
@@ -85,7 +95,7 @@ class VariableScopeBinder {
         }
     }
 
-    handleExpressionId(node, state) {
+    static handleExpressionId(node, state, scopeState) {
         let backIndex = 1;
         let parentType = null;
         let parent = null;
@@ -115,13 +125,14 @@ class VariableScopeBinder {
         node.bindings = currentScope.addBinding(node.name, node);
     }
 
-    onExit(node) {
+    static onExit(node, scopeState) {
         const type = node.type;
+        const scopes = scopeState.scopes;
         switch (node.type) {
             case 'ArrowFunctionExpression':
             case 'FunctionDeclaration':
             case 'FunctionExpression': {
-                currentScope = currentScope.parent
+                scopeState.currentScope = scopeState.currentScope.parent;
                 break;
             }
             case 'Program': {
@@ -132,4 +143,8 @@ class VariableScopeBinder {
             }
         }
     }
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = VariableScopeBinder;
 }

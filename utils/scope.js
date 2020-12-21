@@ -8,8 +8,6 @@ class Scope {
         this.parent = parent;
     }
 
-
-
     _generateBinding(type, name) {
         return {
             type: type,
@@ -146,4 +144,9 @@ class Scope {
         }
         this.undef.clear();
     }
+}
+
+// https://stackoverflow.com/a/5197219
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Scope;
 }

@@ -893,3 +893,8 @@ class EstreePatchTraverser {
         this.state.keys.pop()
     }
 }
+
+// https://stackoverflow.com/a/5197219
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = EstreePatchTraverser;
+}
