@@ -84,3 +84,46 @@ test('Ability to rename variable a to owo', () => {
     traverser.traverse(ast);
     expect(escodegen.generate(ast)).toBe('var owo;');
 });
+
+
+test('Repeatedly declared variables inside a scope are renamed to the same thing', () => {
+    const testManager = new TestManager();
+
+    const test1 = Test.create({
+        name: "Rename test",
+        tests: [{
+            depth: 2,
+            "ast-subtree": {
+                type: "Identifier",
+                name: "a"
+            }
+        }],
+        renames : [{
+            name: "param1"
+        }]
+    });
+
+    testManager.addTest(test1);
+    const code = `
+    function test(a) {
+        var a = true ? a : 1;
+    }
+    `.trim();
+    const ast = acorn.parse(code);
+    
+    VariableScopeBinder.buildBindings(ast);
+
+    const traverser = new EstreePatchTraverser({
+        enter: function (node, state) {
+            testManager.onEnter(node, state, traverser);
+        }
+    });
+    const modifiedCode = [
+        'function test(param1) {',
+        '    var param1 = true ? param1 : 1;',
+        '}'
+    ].join('\n');
+    
+    traverser.traverse(ast);
+    expect(escodegen.generate(ast)).toBe(modifiedCode);
+});
