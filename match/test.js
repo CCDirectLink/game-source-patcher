@@ -1,8 +1,3 @@
-// https://stackoverflow.com/a/5197219
-if (typeof module !== 'undefined' && module.exports) {
-    global.TestCase = require('./test-case.js');
-}
-
 class Test {
     constructor(patchObject) {
         this.patchObject = patchObject;
@@ -17,15 +12,13 @@ class Test {
         this.compareObject = compare;
     }
 
-    addCase(caseData) {
+    addCase(aCase) {
 
-        this.maxDepth = Math.max(this.maxDepth, caseData.depth || 0);
+        this.maxDepth = Math.max(this.maxDepth, aCase.depth || 0);
 
-        this.cases.push(new TestCase(caseData["ast-subtree"], caseData.depth));
+        this.cases.push(aCase);
 
-        if (this.cases.length === 1) {
-            this.cases[0].ignore = false;
-        }
+        aCase.ignore = this.cases.length !== 1;
     }
 
     getCases() {
@@ -40,7 +33,7 @@ class Test {
         const depth = state.depth;
         const currentCase = this.cases[this.caseIndex];
         if (currentCase.depth === depth) {
-            if (this.compareObject.compare(node, currentCase.code)) {
+            if (this.compareObject.compare(node, currentCase["ast-subtree"])) {
                 this.nodeMatches.push(node);
                 if (this.caseIndex + 1 < this.cases.length) {
                     currentCase.ignore = true;
