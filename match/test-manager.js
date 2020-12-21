@@ -71,9 +71,10 @@ class TestManager {
 
     onEnter(node, state, traverser) {
         const depth = state.depth;
-        if (this.maxDepth < depth) {
+        if (this.maxDepth <= depth) {
             state.skip = true;
-        } 
+        }
+
         if (this.depths[depth] && this.depths[depth].length > 0) {
             const tests = this.depths[depth];
             for (let index = 0; index < tests.length; ++index) {
