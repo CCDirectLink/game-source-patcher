@@ -1,3 +1,9 @@
+// https://stackoverflow.com/a/5197219
+if (typeof module !== 'undefined' && module.exports) {
+    global.Rename = require("./rename.js");
+    global.Patch = require("./patch.js");
+}
+
 class Test {
     constructor(patchObject) {
         this.patchObject = patchObject;
@@ -6,6 +12,22 @@ class Test {
         this.nodeMatches = [];
         this.maxDepth = 0;
         this.compareObject = null;
+    }
+
+    static create(testData) {
+        let patchObject;
+        if (testData.renames) {
+            patchObject = new Rename(testData.renames);
+
+        } else if (testData.patches) {
+            patchObject = new Patch(testData.patches);
+        }
+        const instance = new Test(patchObject);
+
+        for (const testCase of testData.tests) {
+            instance.addCase(testCase);
+        }
+        return instance;
     }
 
     addCompareObject(compare) {
