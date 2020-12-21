@@ -6,6 +6,10 @@ if (typeof module !== 'undefined' && module.exports) {
     global.ES11 = require('./utils/traverse/patch-traverser.js');
 }
 
+Array.prototype.last = function(at = 0) {
+    return this[this.length - (at + 1)];
+};
+
 class VariableScopeBinder {
     static buildBindings(ast) {
         const scopeState = {
@@ -44,8 +48,8 @@ class VariableScopeBinder {
 
     static handleIdentifier(node, state, scopeState) {
         const currentScope = scopeState.currentScope;
-        const parent = state.parents.slice(-1)[0];
-        const key = state.keys.slice(-1)[0];
+        const parent = state.parents.last();
+        const key = state.keys.last();
         if (parent.type === 'FunctionDeclaration') {
             VariableScopeBinder.handleFunctionDeclarationId(node, state, scopeState);
         } else if (parent.type === 'FunctionExpression' || parent.type === 'ArrowFunctionExpression') {
@@ -67,6 +71,7 @@ class VariableScopeBinder {
 
     static handleFunctionDeclarationId(node, state, scopeState) {
         const currentScope = scopeState.currentScope;
+        const key = state.keys.last();
         if (key[0] === 'id') {
             node.bindings = currentScope.parent.addVariable(node.name, node);
             
@@ -77,6 +82,7 @@ class VariableScopeBinder {
 
     static handleFunctionExpressionId(node, state, scopeState) {
         const currentScope = scopeState.currentScope;
+        const key = state.keys.last();
         if (key[0] === 'id') {
             node.bindings = currentScope.addId(node.name, node);
         } else if (key[0] === 'params') {
@@ -86,6 +92,7 @@ class VariableScopeBinder {
 
     static handleAssignmentPatternId(node, state, scopeState) {
         const currentScope = scopeState.currentScope;
+        const key = state.keys.last();
         if (key[0] === 'left') {
             if (state.keys.last(2)[0] === 'params') {
                 node.bindings = currentScope.addParam(node.name, node);
@@ -99,6 +106,7 @@ class VariableScopeBinder {
         let backIndex = 1;
         let parentType = null;
         let parent = null;
+        const currentScope = scopeState.currentScope;
         while ((parent = state.parents.last(backIndex))) {
             parentType = parent.type;
             backIndex++;
