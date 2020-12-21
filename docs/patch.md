@@ -3,7 +3,7 @@
 [{
     "name": "A patch",
     "module": "module.name",
-    "test": [{
+    "tests": [{
         "depth": 1, // depth from Program root
         "ast-subtree": /** some ast subtree **/,
     },{
