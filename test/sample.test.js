@@ -26,7 +26,7 @@ test('Rename variable a to owo', () => {
     }]));
     test.addCase({
         depth: 3,
-        code: {
+        "ast-subtree": {
             type: "Identifier",
             name: "a"
         }

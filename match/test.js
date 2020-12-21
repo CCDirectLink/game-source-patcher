@@ -21,7 +21,7 @@ class Test {
 
         this.maxDepth = Math.max(this.maxDepth, caseData.depth || 0);
 
-        this.cases.push(new TestCase(caseData.code, caseData.depth));
+        this.cases.push(new TestCase(caseData["ast-subtree"], caseData.depth));
 
         if (this.cases.length === 1) {
             this.cases[0].ignore = false;
