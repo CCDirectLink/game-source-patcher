@@ -3,6 +3,10 @@
 	"version": "0.1.0",
 	"description": "A mod that allows other mods to patch the game source",
 	"devDependencies": {
+		"escodegen": "^2.0.0",
 		"jest": "^26.6.3"
+	},
+	"scripts": {
+		"test": "jest ./test/"
 	}
 }
