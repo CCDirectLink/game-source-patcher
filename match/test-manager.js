@@ -4,6 +4,7 @@
 // https://stackoverflow.com/a/34550964
 if (typeof module !== 'undefined' && module.exports) {
     global.EstreeCompare = require('../utils/traverse/compare-traverser.js');
+    global.EstreePatchTraverser = require("../utils/traverse/patch-traverser.js");
 }
 
 
@@ -21,6 +22,17 @@ class TestManager {
         this.tests = [];
         this.maxDepth = 0;
     }
+
+    execute(ast) {
+        const instance = this;
+        const traverser = new EstreePatchTraverser({
+            enter: function (node, state) {
+                instance.onEnter(node, state, traverser);
+            }
+        });
+        traverser.traverse(ast);
+    }
+
 
     addTestAtDepth(depth, test) {
         if (this.depths.length < depth) {
