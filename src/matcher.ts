@@ -1,20 +1,31 @@
+/// <reference types="acorn" />
+
+import ASTComparer from "./ast-comparer";
 
 class Matcher {
-    private reference: unknown;
-    private matchedNode: unknown;
+    private reference: acorn.Node;
+    private matchedNode: acorn.Node;
+    private comparer: ASTComparer;
     
     /**
      * 
-     * @param reference - AST subtree reference. Must not contain a Program node. 
+     * @param reference AST subtree reference. Must not contain a Program node.
+     * @param comparer An ASTComparer Matcher will use to compare two nodes.
      */
-    public Matcher(reference: unknown) { // Note: Should convert unknown to a type that accepts various ast types
+    public Matcher(reference: acorn.Node, comparer : ASTComparer) {
         this.reference = reference;
+        this.comparer = comparer;
     }
 
-    public check(node : unknown) : boolean {
-        if () {
-
+    public check(node : acorn.Node) : boolean {
+        const matches = this.comparer.compare(this.reference, node); 
+        if (matches) {
+            this.matchedNode = node;
         }
-        return true;
+        return matches;
+    }
+
+    public getMatchedNode() : acorn.Node {
+        return this.matchedNode;
     }
 }
